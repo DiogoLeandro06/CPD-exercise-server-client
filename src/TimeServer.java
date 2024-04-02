@@ -8,6 +8,11 @@ import java.util.Date;
  * @author www.codejava.net
  */
 public class TimeServer {
+
+
+    private int i = 0;
+
+
  
     public static void main(String[] args) {
         if (args.length < 1) return;
@@ -24,16 +29,13 @@ public class TimeServer {
                 InputStream input = socket.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
  
+                String client_msg = reader.readLine();
+                System.out.println("New client connected: " + client_msg);
+
                 //criar thread
-
-                String time = reader.readLine();
-
-                System.out.println("New client connected: "+ time);
- 
-                OutputStream output = socket.getOutputStream();
-                PrintWriter writer = new PrintWriter(output, true);
- 
-                writer.println(new Date().toString());
+                ThreadFunction obj = new ThreadFunction(socket);
+                Thread thread = new Thread(obj);
+                thread.start();
             }
  
         } catch (IOException ex) {
@@ -42,3 +44,5 @@ public class TimeServer {
         }
     }
 }
+
+
