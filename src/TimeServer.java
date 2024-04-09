@@ -26,11 +26,7 @@ public class TimeServer {
             while (true) {
                 Socket socket = serverSocket.accept();
  
-                InputStream input = socket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
- 
-                String client_msg = reader.readLine();
-                System.out.println("New client connected: " + client_msg);
+                System.out.println("New client connected: ");
 
                 //criar thread
                 ThreadFunction obj = new ThreadFunction(socket);

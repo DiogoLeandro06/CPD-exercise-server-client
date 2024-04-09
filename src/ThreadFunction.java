@@ -14,11 +14,19 @@ public class ThreadFunction implements Runnable{
     public void run(){
         try {
             System.out.println("thread created");
+            while (true){
+                InputStream input = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
 
-            OutputStream output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
+                String client_msg = reader.readLine();
 
-            writer.println(new Date().toString());
+                //System.out.println(client_msg);
+
+                OutputStream output = socket.getOutputStream();
+                PrintWriter writer = new PrintWriter(output, true);
+
+                writer.println(new Date().toString());
+            }
         }
          catch (IOException ex) {
             System.out.println("Server exception: " + ex.getMessage());
